@@ -1,17 +1,20 @@
-import { NotImplementedError } from '../extensions/index.js';
+export default function getCommonCharacterCount(s1, s2) {
+  if (s1.length == 0 || s2.lenght == 0)
+    return 0
 
-/**
- * Given two strings, find the number of common characters between them.
- *
- * @param {String} s1
- * @param {String} s2
- * @return {Number}
- *
- * @example
- * For s1 = "aabcc" and s2 = "adcaa", the output should be 3
- * Strings have 3 common characters - 2 "a"s and 1 "c".
- */
-export default function getCommonCharacterCount(/* s1, s2 */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+  let count = 0;
+  s1 = countChars(s1)
+  s2 = countChars(s2)
+  for (let char in s1)
+    if (s2[char])
+      count += Math.min(s1[char], s2[char])
+
+  return count
+}
+function countChars(s) {
+  const arr = s.split('').sort().join('').match(/(.)\1*/g)
+  const chars = {}
+  for (let a of arr)
+    chars[a[0]] = a.length
+  return chars
 }
